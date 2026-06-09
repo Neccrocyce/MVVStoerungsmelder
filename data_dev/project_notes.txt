@@ -1,0 +1,40 @@
+APIs:
+-----
+MVV: "https://www.mvv-muenchen.de/fahrt-planen/fahrtinformationen/fahrplanaenderungen-/-stoerungen?tx_snmvvfahrplanaenderungen_filter[action]=ajaxFilter&tx_snmvvfahrplanaenderungen_filter[controller]=Fahrplanaenderungen&type=95&tx_snmvvfahrplanaenderungen_filter[filter_motTypes]=2&tx_snmvvfahrplanaenderungen_filter[filter_lines]=&tx_snmvvfahrplanaenderungen_filter[storage_pid]=189,391&tx_snmvvfahrplanaenderungen_filter[submit]=1"
+S-Bahn-Muenchen: "https://www.s-bahn-muenchen.de/.rest/verkehrsmeldungen?path=/aktuell/bayern&filter=true&channel=REGIONAL&prop=SBAHN&states=BY&authors=S_BAHN_MUC"
+MVG: "https://www.mvg.de/api/bgw-pt/v3/messages"
+
+Settings:
+---------
+Nachrichtenfilterung
+	Typ [Required]
+		[Default] keine Benachrichtungen
+		Störung
+		Baustelle
+
+	Verkehrsmittel [Optional]
+		S-Bahn
+		U-Bahn
+		Tram
+		Bahn (RB, RE, ...)
+		MVG Bus
+		Regionalbus
+		
+	Linien [Optional]
+	
+	Haltestellen [nicht umgesetzt]
+
+Nachrichtenanpassung
+	Vorabbenachrichtigung
+		[Default] Nur Benachrichtungen über aktuell eintretende Unterbrechungen
+		Vorabbenachrichtigung: zusätzliche Benachrichtungen 1 Woche vor Beginn geplanter Unterbrechungen
+		
+	Updates zu Störungen
+		[Default] Einmalige Benachrichtung (plus Vorabbenachrichtigung falls gesetzt)
+		Updates: Benachrichtungen über neue Informationen zu einer Unterbrechungen
+		Beendigung: Benachrichtungen, sobald Unterbrechungen beendet wurde
+		
+	Details
+		Nur Titel
+		Titel, Beschreibung und Links
+	

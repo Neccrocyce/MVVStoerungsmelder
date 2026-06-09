@@ -1,0 +1,43 @@
+res = []
+for d in data:
+	temp = d["lines"][0]["label"]
+	if temp not in res:
+		res.append(temp)
+		
+	
+res = []
+for d in data:
+	for d2 in d["lines"]:
+		temp = d2["divaId"]
+		if temp not in res:
+			res.append(temp)
+res
+
+
+
+
+
+type:
+	INCIDENT
+	SCHEDULE_CHANGE
+	
+providers:
+	MVG
+	DEFAS
+		
+lines:labels
+	167, X204, N76, SEV RB46, S4, RE3, U6, ...]
+	
+lines:transportType:
+	BUS
+	REGIONAL_BUS
+	BAHN
+	SBAHN
+	UBAHN
+	
+lines:network:
+	swm
+	mvv
+	ddb
+
+stationGlobalIds
