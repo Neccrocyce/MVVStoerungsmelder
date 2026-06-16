@@ -16,6 +16,7 @@ def main():
     try:
         # Initialize the disruption manager, which automatically fetches from the API
         manager = DisruptionManager()
+        manager.update_disruptions()
 
         # Display summary
         print(f"Found {len(manager.disruptions)} disruption(s)")
@@ -35,7 +36,7 @@ def main():
             print(f"  Affected Lines: {', '.join(sorted(disruption.affected_lines))}")
             print(
                 f"  Affected Modes: {', '.join(mode.value for mode in sorted(disruption.affected_modes, key=lambda m: m.value))}")
-            print(f"  Status: {disruption.message_status.value}")
+            print(f"  Status: {disruption.status.value}")
 
             # Display durations
             if disruption.disruption_durations:

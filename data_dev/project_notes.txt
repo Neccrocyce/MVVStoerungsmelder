@@ -37,4 +37,80 @@ Nachrichtenanpassung
 	Details
 		Nur Titel
 		Titel, Beschreibung und Links
+		
+		
+
+Status and notifications:
+----------------------------
+# Status:
+	planned
+		Planned disruption that will not start within the next 7 days
+	upcoming
+		Planned disruption that will start within the next 7 days
+	active
+		Disruption that has started and is currently ongoing
+	cleared
+		Disruption that is no longer active and there is no upcoming disruption planned
+	not found
+		Disruption that is no longer listed in the API
 	
+# Notifications:
+	none
+		No notification should be sent
+	announcement
+		A disruption has entered the 7-day announcement window and should be announced to users
+	activation
+		A disruption has become active and is now affecting service
+	update
+		An existing disruption has changed (e.g. description, affected lines, start/end time, durations, etc.)
+	temp_clearance
+		A disruption has temporarily ended is no longer affecting service at the time of the update
+	clearance
+		A disruption has completely ended or has been removed and is no longer affecting service
+	cancellation
+		A planned disruption has been cancelled before it started
+	
+# Status definition
+x: Each duration of a disruption with start and end time; Disruptions can have several durations
+
+¬active ∧ ¬cleared ∧ ∀x: x.end > now ⇒ x.start > now + 7 days: planned, none
+¬active ∧ ∃x: now <= x.start <= now + 7 days: upcoming, announcement
+∃x: x.start <= now < x.end: active, activation
+∀x: x.end <= now: cleared, clearance
+
+
+
+
+# Status changes [Old status -> new status]:
+-> planned: none
+planned -> planned: none
+upcoming -> planned: update (can only happen if start time changes)
+active -> planned: temp_clearance
+cleared -> planned: [invalid transition]
+
+-> upcoming: announcement
+planned -> upcoming: announcement
+upcoming -> upcoming: none or update
+active -> upcoming: temp_clearance
+cleared -> upcoming: [invalid transition]
+
+-> active: activation
+planned -> active: activation
+upcoming -> active: activation
+active -> active: none or update
+cleared -> active: [invalid transition]
+
+-> cleared: none [does not make sense but could happen]
+planned -> cleared: none [e.g., construction is canceled]
+upcoming -> cleared: cancellation [e.g., construction is canceled]
+active -> cleared: clearance
+cleared -> cleared: none
+
+planned -> not found: none
+upcoming -> not found: cancellation
+active -> not found: clearance
+cleared -> not found: none
+
+cleared has only transitions to itself and not_found
+not_found is an end state
+
